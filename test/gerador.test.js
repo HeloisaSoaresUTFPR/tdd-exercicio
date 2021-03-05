@@ -44,4 +44,32 @@ describe('Gerador',() => {
         expect(props[2].total).toBeCloseTo(1500.00);
         expect(props[2].valorDaParcela).toBeCloseTo(150.00);
     }); 
+
+    test('acima de 5000', () =>{
+        const g =  new Gerador();
+        const cliente = {
+            nome: 'Sisi',
+            salario: 6500.00,
+            idade:30,
+            valorDoEmprestimo: 1000.00
+        } 
+        const props = g.montarPropostas(cliente);
+
+        expect(props.length).toBe(4);
+        expect(props[0].parcelas).toBe(2);
+        expect(props[0].total).toBeCloseTo(1100.00);
+        expect(props[0].valorDaParcela).toBeCloseTo(550.00);
+
+        expect(props[1].parcelas).toBe(4);
+        expect(props[1].total).toBeCloseTo(1300.00);
+        expect(props[1].valorDaParcela).toBeCloseTo(325.00);
+
+        expect(props[2].parcelas).toBe(10);
+        expect(props[2].total).toBeCloseTo(1300.00);
+        expect(props[2].valorDaParcela).toBeCloseTo(130.00);
+
+        expect(props[3].parcelas).toBe(20);
+        expect(props[3].total).toBeCloseTo(1400.00);
+        expect(props[3].valorDaParcela).toBeCloseTo(70.00);
+    });
 })
