@@ -1,3 +1,6 @@
+import {toBeDeepCloseTo,toMatchCloseTo} from 'jest-matcher-deep-close-to';
+expect.extend({toBeDeepCloseTo, toMatchCloseTo});
+
 const Gerador = require('../lib/gerador');
 
 describe('Gerador',() => {
@@ -99,5 +102,36 @@ describe('Gerador',() => {
         expect(props[3].parcelas).toBe(20);
         expect(props[3].total).toBeCloseTo(1400.00);
         expect(props[3].valorDaParcela).toBeCloseTo(70.00);
+
+        it ( 'retornar float' ,  ( )  =>  { 
+            expect(props.length).toBe(3);
+            expect ( props[0].total ).toBeDeepCloseTo ( 1100.00 ); 
+            expect ( props[1].total ).toBeDeepCloseTo ( 325.00 ); 
+            expect ( props[2].total ).toBeDeepCloseTo ( 1300.00 ); 
+            expect ( props[3].total ).toBeDeepCloseTo ( 1400.00 ); 
+        }); 
+
     });
+
 })
+
+describe('Teste com valores float ', () => {
+
+    const g =  new Gerador();
+        const cliente = {
+            nome: 'Sisi',
+            salario: 6500.00,
+            idade:30,
+            valorDoEmprestimo: 1000.00
+        } 
+    const props = g.montarPropostas(cliente);
+
+
+    it ( 'retornar float' ,  ( )  =>  { 
+        expect(props.length).toBe(4);
+        expect ( props[0].total ).toBeDeepCloseTo ( 1100.00 ); 
+        expect ( props[1].total ).toBeDeepCloseTo ( 1300.00 ); 
+        expect ( props[2].total ).toBeDeepCloseTo ( 1300.00 ); 
+        expect ( props[3].total ).toBeDeepCloseTo ( 1400.00 ); 
+    }); 
+});
